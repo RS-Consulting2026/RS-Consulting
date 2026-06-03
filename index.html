@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RS Consulting | Flood Risk & Environmental Specialists</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1F4E79;
+    --blue: #2E75B6;
+    --sky: #5BA4CF;
+    --pale: #EBF4FA;
+    --accent: #D6E4F0;
+    --water: #A8D4ED;
+    --white: #FFFFFF;
+    --off-white: #F7FAFD;
+    --grey: #4A5568;
+    --light-grey: #718096;
+    --dark: #1A202C;
+    --gold: #C9A84C;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--dark);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--accent);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px;
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 4px 24px rgba(31,78,121,0.1); }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-logo img { height: 40px; width: 40px; border-radius: 6px; }
+  .nav-logo-text { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--navy); font-weight: 700; letter-spacing: -0.3px; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { font-size: 14px; font-weight: 500; color: var(--grey); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--navy); }
+  .nav-cta {
+    background: var(--navy); color: var(--white);
+    padding: 10px 22px; border-radius: 6px;
+    font-size: 14px; font-weight: 600; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--blue); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    position: relative;
+    display: flex; align-items: center;
+    overflow: hidden;
+    padding-top: 70px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #0d2d4a 0%, #1F4E79 45%, #2E75B6 100%);
+  }
+  .hero-waves {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 180px; overflow: hidden;
+  }
+  .hero-waves svg { width: 100%; height: 100%; }
+  .hero-grid {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: linear-gradient(var(--white) 1px, transparent 1px), linear-gradient(90deg, var(--white) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 1100px; margin: 0 auto; padding: 80px 5%;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+    color: var(--water); font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 20px; margin-bottom: 24px;
+  }
+  .hero-eyebrow::before { content: ''; width: 6px; height: 6px; background: var(--water); border-radius: 50%; }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 5vw, 58px);
+    font-weight: 700; line-height: 1.15;
+    color: var(--white); margin-bottom: 24px;
+    letter-spacing: -0.5px;
+  }
+  .hero h1 em { color: var(--water); font-style: normal; }
+  .hero-sub {
+    font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.78);
+    margin-bottom: 40px; font-weight: 300;
+  }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--white); color: var(--navy);
+    padding: 14px 28px; border-radius: 7px;
+    font-size: 15px; font-weight: 600; text-decoration: none;
+    transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+    border: 2px solid var(--white);
+  }
+  .btn-primary:hover { background: var(--pale); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .btn-outline {
+    background: transparent; color: var(--white);
+    padding: 14px 28px; border-radius: 7px;
+    font-size: 15px; font-weight: 600; text-decoration: none;
+    border: 2px solid rgba(255,255,255,0.4);
+    transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+  .hero-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px; padding: 36px;
+    backdrop-filter: blur(10px);
+  }
+  .hero-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; color: var(--white); font-weight: 600; margin-bottom: 20px;
+    padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+  .cred-item {
+    display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px;
+  }
+  .cred-icon {
+    width: 36px; height: 36px; background: rgba(91,164,207,0.2); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 16px;
+  }
+  .cred-text strong { display: block; color: var(--white); font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+  .cred-text span { color: rgba(255,255,255,0.6); font-size: 13px; }
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: rgba(255,255,255,0.12); border-radius: 10px; overflow: hidden;
+    margin-top: 24px;
+  }
+  .stat-item { background: rgba(255,255,255,0.06); padding: 16px 14px; text-align: center; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--water); font-weight: 700; }
+  .stat-label { font-size: 11px; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 3px; }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 5%; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 42px); font-weight: 700;
+    color: var(--navy); line-height: 1.2; margin-bottom: 20px;
+    letter-spacing: -0.3px;
+  }
+  .section-sub { font-size: 17px; color: var(--grey); line-height: 1.7; max-width: 620px; }
+  .divider { width: 48px; height: 3px; background: var(--blue); border-radius: 2px; margin: 20px 0; }
+
+  /* ── SERVICES ── */
+  .services-bg { background: var(--off-white); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;
+    margin-top: 56px;
+  }
+  .service-card {
+    background: var(--white); border-radius: 12px; padding: 28px;
+    border: 1px solid var(--accent);
+    transition: all 0.25s; cursor: default;
+    position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--navy), var(--blue));
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .service-card:hover { border-color: var(--water); box-shadow: 0 8px 32px rgba(31,78,121,0.1); transform: translateY(-3px); }
+  .service-card:hover::before { opacity: 1; }
+  .service-icon {
+    width: 48px; height: 48px; background: var(--pale); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 18px;
+  }
+  .service-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+  .service-desc { font-size: 14px; color: var(--grey); line-height: 1.65; }
+  .service-tag {
+    display: inline-block; margin-top: 14px;
+    background: var(--pale); color: var(--blue);
+    font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 4px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+
+  /* ── WHO WE WORK WITH ── */
+  .audiences-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 56px; }
+  .audience-card {
+    border-radius: 14px; padding: 36px; position: relative; overflow: hidden;
+    background: var(--navy);
+    transition: transform 0.25s;
+  }
+  .audience-card:hover { transform: translateY(-4px); }
+  .audience-card:nth-child(1) { background: linear-gradient(135deg, #1F4E79, #2E75B6); }
+  .audience-card:nth-child(2) { background: linear-gradient(135deg, #196F3D, #239B56); }
+  .audience-card:nth-child(3) { background: linear-gradient(135deg, #7D3C98, #9B59B6); }
+  .audience-card:nth-child(4) { background: linear-gradient(135deg, #784212, #CA6F1E); }
+  .audience-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 56px; font-weight: 700; color: rgba(255,255,255,0.1);
+    position: absolute; top: 16px; right: 24px; line-height: 1;
+  }
+  .audience-icon { font-size: 32px; margin-bottom: 16px; }
+  .audience-name { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--white); font-weight: 700; margin-bottom: 12px; }
+  .audience-pain { font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.65; margin-bottom: 18px; }
+  .audience-points { list-style: none; }
+  .audience-points li {
+    font-size: 13px; color: rgba(255,255,255,0.85);
+    padding: 5px 0; padding-left: 18px; position: relative;
+  }
+  .audience-points li::before { content: '→'; position: absolute; left: 0; color: rgba(255,255,255,0.5); }
+
+  /* ── ABOUT ── */
+  .about-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center; }
+  .about-visual {
+    position: relative;
+  }
+  .about-card-main {
+    background: var(--navy); border-radius: 16px; padding: 40px;
+    color: var(--white); position: relative; overflow: hidden;
+  }
+  .about-card-main::after {
+    content: ''; position: absolute; bottom: -40px; right: -40px;
+    width: 160px; height: 160px; border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .about-name { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .about-title { color: var(--water); font-size: 14px; margin-bottom: 20px; }
+  .about-quals { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .qual-badge {
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+    color: var(--white); font-size: 12px; font-weight: 600;
+    padding: 5px 12px; border-radius: 20px;
+  }
+  .about-accent {
+    background: var(--pale); border-radius: 10px; padding: 20px 24px;
+    margin-top: 16px; border-left: 4px solid var(--blue);
+  }
+  .about-accent p { font-size: 14px; color: var(--grey); line-height: 1.7; font-style: italic; }
+  .about-content p { font-size: 16px; color: var(--grey); line-height: 1.8; margin-bottom: 20px; }
+  .about-content strong { color: var(--navy); }
+  .value-list { list-style: none; margin-top: 28px; }
+  .value-list li {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 14px 0; border-bottom: 1px solid var(--accent);
+  }
+  .value-list li:last-child { border-bottom: none; }
+  .value-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; font-weight: 700; color: var(--blue);
+    flex-shrink: 0; width: 30px; padding-top: 2px;
+  }
+  .value-text strong { display: block; font-size: 15px; color: var(--navy); margin-bottom: 4px; }
+  .value-text span { font-size: 14px; color: var(--grey); line-height: 1.55; }
+
+  /* ── CASE STUDIES ── */
+  .cases-bg { background: var(--off-white); }
+  .cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+  .case-card {
+    background: var(--white); border-radius: 12px; overflow: hidden;
+    border: 1px solid var(--accent); transition: all 0.25s;
+  }
+  .case-card:hover { box-shadow: 0 10px 40px rgba(31,78,121,0.1); transform: translateY(-4px); }
+  .case-header { background: var(--navy); padding: 24px; position: relative; }
+  .case-header:nth-child(1) { background: linear-gradient(135deg, #1F4E79, #2E75B6); }
+  .case-tag {
+    display: inline-block; background: rgba(255,255,255,0.15); color: var(--white);
+    font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 4px; margin-bottom: 10px;
+  }
+  .case-title { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--white); font-weight: 700; line-height: 1.3; }
+  .case-body { padding: 24px; }
+  .case-challenge { font-size: 13px; color: var(--light-grey); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 6px; }
+  .case-text { font-size: 14px; color: var(--grey); line-height: 1.65; margin-bottom: 18px; }
+  .case-outcome {
+    background: var(--pale); border-radius: 8px; padding: 14px 16px;
+    border-left: 3px solid var(--blue);
+  }
+  .case-outcome strong { display: block; font-size: 12px; color: var(--blue); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
+  .case-outcome p { font-size: 14px; color: var(--navy); font-weight: 500; }
+
+  /* ── PROCESS ── */
+  .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 60px; position: relative; }
+  .process-steps::before {
+    content: ''; position: absolute; top: 32px; left: 10%; right: 10%; height: 2px;
+    background: linear-gradient(90deg, var(--navy), var(--blue));
+    z-index: 0;
+  }
+  .process-step { text-align: center; padding: 0 16px; position: relative; z-index: 1; }
+  .step-circle {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--navy); color: var(--white);
+    font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px; border: 3px solid var(--white);
+    box-shadow: 0 0 0 3px var(--navy);
+  }
+  .step-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+  .step-desc { font-size: 13px; color: var(--grey); line-height: 1.6; }
+
+  /* ── CONTACT ── */
+  .contact-bg { background: var(--navy); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .contact-left .section-title { color: var(--white); }
+  .contact-left .section-sub { color: rgba(255,255,255,0.7); }
+  .contact-left .divider { background: var(--water); }
+  .contact-info { margin-top: 40px; display: flex; flex-direction: column; gap: 20px; }
+  .contact-item { display: flex; align-items: center; gap: 16px; }
+  .contact-icon {
+    width: 48px; height: 48px; background: rgba(255,255,255,0.1); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
+  }
+  .contact-detail strong { display: block; font-size: 12px; color: var(--water); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+  .contact-detail a { color: var(--white); font-size: 16px; text-decoration: none; font-weight: 500; }
+  .contact-detail a:hover { color: var(--water); }
+  .contact-areas { margin-top: 36px; }
+  .contact-areas h4 { color: var(--water); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .area-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .area-tag {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.8); font-size: 13px; padding: 6px 14px; border-radius: 20px;
+  }
+  .contact-form { background: var(--white); border-radius: 16px; padding: 40px; }
+  .form-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--navy); font-weight: 700; margin-bottom: 28px; }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 7px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 12px 16px;
+    border: 1.5px solid var(--accent); border-radius: 8px;
+    font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--dark);
+    outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+    background: var(--off-white);
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--blue); box-shadow: 0 0 0 3px rgba(46,117,182,0.15);
+    background: var(--white);
+  }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .btn-submit {
+    width: 100%; background: var(--navy); color: var(--white);
+    padding: 15px; border: none; border-radius: 8px;
+    font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 600;
+    cursor: pointer; margin-top: 8px; transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .btn-submit:hover { background: var(--blue); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(31,78,121,0.3); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0d2d4a; padding: 40px 5%;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
+  }
+  .footer-left { display: flex; align-items: center; gap: 12px; }
+  .footer-left img { height: 36px; width: 36px; border-radius: 5px; opacity: 0.9; }
+  .footer-brand { font-family: 'Playfair Display', serif; font-size: 16px; color: rgba(255,255,255,0.8); }
+  .footer-brand span { display: block; font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(255,255,255,0.45); font-weight: 400; margin-top: 2px; }
+  .footer-right { color: rgba(255,255,255,0.4); font-size: 13px; text-align: right; line-height: 1.6; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-content > * { animation: fadeUp 0.7s ease both; }
+  .hero-content > *:nth-child(1) > * { animation: fadeUp 0.7s ease both; }
+  .hero-content > *:nth-child(1) > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-content > *:nth-child(1) > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero-content > *:nth-child(1) > *:nth-child(3) { animation-delay: 0.3s; }
+  .hero-content > *:nth-child(1) > *:nth-child(4) { animation-delay: 0.4s; }
+  .hero-content > *:nth-child(2) { animation-delay: 0.5s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero-content { grid-template-columns: 1fr; gap: 48px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .audiences-grid { grid-template-columns: 1fr; }
+    .cases-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .process-steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .process-steps::before { display: none; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 600px) {
+    section { padding: 70px 5%; }
+    .process-steps { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero-stats { grid-template-columns: repeat(3,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo">
+    <img src="data:image/jpeg;base64,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" alt="RS Consulting Logo">
+    <span class="nav-logo-text">RS Consulting</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#clients">Who We Help</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#cases">Case Studies</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get in Touch</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-eyebrow">Yorkshire & The North of England</div>
+      <h1>Flood Risk Expertise that <em>Keeps Projects Moving</em></h1>
+      <p class="hero-sub">Specialist flood risk assessments, drainage strategies, and environmental consultancy for developers, architects, planners, and local authorities.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-primary">Get a Free Site Appraisal →</a>
+        <a href="#services" class="btn-outline">Our Services</a>
+      </div>
+    </div>
+    <div>
+      <div class="hero-card">
+        <div class="hero-card-title">Mike Robinson-Smith</div>
+        <div class="cred-item">
+          <div class="cred-icon">🎓</div>
+          <div class="cred-text">
+            <strong>BSc (Hons) Environmental Science</strong>
+            <span>Academic foundation in environmental systems and hydrology</span>
+          </div>
+        </div>
+        <div class="cred-item">
+          <div class="cred-icon">✦</div>
+          <div class="cred-text">
+            <strong>REnvP — Registered Environmentalist</strong>
+            <span>Awarded by the Society for the Environment</span>
+          </div>
+        </div>
+        <div class="cred-item">
+          <div class="cred-icon">🏛</div>
+          <div class="cred-text">
+            <strong>AMIEnvSc — Associate Member</strong>
+            <span>Institute of Environmental Sciences</span>
+          </div>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num">FRA</div>
+            <div class="stat-label">Levels 1 & 2</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">SuDS</div>
+            <div class="stat-label">Drainage Design</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">SFRA</div>
+            <div class="stat-label">Strategic Assessments</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-waves">
+    <svg viewBox="0 0 1440 180" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,80 C240,140 480,20 720,80 C960,140 1200,20 1440,80 L1440,180 L0,180 Z" fill="rgba(255,255,255,0.04)"/>
+      <path d="M0,110 C360,60 720,160 1080,110 C1260,85 1380,120 1440,130 L1440,180 L0,180 Z" fill="white"/>
+    </svg>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-bg" id="services">
+  <div class="section-inner">
+    <div class="section-label">What We Do</div>
+    <h2 class="section-title">Specialist Flood Risk &amp; Drainage Services</h2>
+    <div class="divider"></div>
+    <p class="section-sub">End-to-end flood risk consultancy tailored to your project type, planning stage, and programme. All work delivered directly by Mike Robinson-Smith.</p>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon">📋</div>
+        <div class="service-name">Flood Risk Assessments</div>
+        <p class="service-desc">Level 1 desktop assessments and Level 2 detailed FRAs for all site types, Flood Zones, and development uses. Compliant with NPPF and local planning policy.</p>
+        <span class="service-tag">Planning</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🗺</div>
+        <div class="service-name">Sequential &amp; Exception Tests</div>
+        <p class="service-desc">Rigorous, evidence-based Sequential Tests and Exception Tests designed to satisfy the LPA and Environment Agency, and hold up under scrutiny at planning committee.</p>
+        <span class="service-tag">Planning</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🌿</div>
+        <div class="service-name">SuDS &amp; Drainage Strategies</div>
+        <p class="service-desc">Surface water drainage strategies aligned to LLFA SuDS requirements. Integrated with site layout from RIBA Stage 2 onwards to avoid costly late-stage redesigns.</p>
+        <span class="service-tag">Design</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🔍</div>
+        <div class="service-name">Pre-Application Advice</div>
+        <p class="service-desc">Site appraisals and flood risk scoping before layouts are fixed. Identifying constraints early — before they become expensive problems at planning stage.</p>
+        <span class="service-tag">Early Stage</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🏛</div>
+        <div class="service-name">Strategic Flood Risk Assessments</div>
+        <p class="service-desc">Level 1 and Level 2 SFRAs for Local Plan preparation and review. Supporting Local Planning Authorities with up-to-date, policy-compliant strategic evidence.</p>
+        <span class="service-tag">Local Authority</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <div class="service-name">Section 19 Investigations</div>
+        <p class="service-desc">Statutory flood investigation reports produced within regulatory timeframes. Supporting Lead Local Flood Authorities with their duties under the Flood and Water Management Act 2010.</p>
+        <span class="service-tag">Local Authority</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">✅</div>
+        <div class="service-name">Planning Condition Discharge</div>
+        <p class="service-desc">Technical reports and drainage details to discharge flood risk and drainage pre-commencement conditions. Clear, well-evidenced submissions to keep your programme on track.</p>
+        <span class="service-tag">Planning</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🔬</div>
+        <div class="service-name">LLFA Technical Review</div>
+        <p class="service-desc">Independent technical review and appraisal of developer-submitted Flood Risk Assessments on behalf of Lead Local Flood Authorities.</p>
+        <span class="service-tag">Local Authority</span>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🌍</div>
+        <div class="service-name">Climate Change Adaptation</div>
+        <p class="service-desc">Flood resilience assessments, climate change vulnerability reviews, and adaptation advisory work. Helping organisations understand and manage long-term flood risk.</p>
+        <span class="service-tag">Advisory</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHO WE WORK WITH -->
+<section id="clients">
+  <div class="section-inner">
+    <div class="section-label">Who We Help</div>
+    <h2 class="section-title">Built Around Your Needs</h2>
+    <div class="divider"></div>
+    <p class="section-sub">Different clients face different challenges. We tailor our approach to the specific pressures, timescales, and requirements of each audience we work with.</p>
+    <div class="audiences-grid">
+
+      <div class="audience-card">
+        <div class="audience-num">01</div>
+        <div class="audience-icon">🏗</div>
+        <div class="audience-name">Property Developers</div>
+        <p class="audience-pain">Flood risk is one of the most common causes of planning delay. We help you get ahead of it — not catch up with it.</p>
+        <ul class="audience-points">
+          <li>Early-stage site appraisals before layouts are fixed</li>
+          <li>FRAs and Sequential Tests geared to planning deadlines</li>
+          <li>Free initial site review — no obligation</li>
+        </ul>
+      </div>
+
+      <div class="audience-card">
+        <div class="audience-num">02</div>
+        <div class="audience-icon">📐</div>
+        <div class="audience-name">Architects</div>
+        <p class="audience-pain">A reliable flood risk specialist you can bring in at RIBA Stage 2 — and trust to deliver on time, every time.</p>
+        <ul class="audience-points">
+          <li>Design-aware input from the start, not after the fact</li>
+          <li>Plain, clearly explained reports for you and your client</li>
+          <li>Direct access to Mike on every project — no handoffs</li>
+        </ul>
+      </div>
+
+      <div class="audience-card">
+        <div class="audience-num">03</div>
+        <div class="audience-icon">📑</div>
+        <div class="audience-name">Planning Consultants</div>
+        <p class="audience-pain">FRAs that are technically robust, NPPF-compliant, and won't cause you problems when it matters most.</p>
+        <ul class="audience-points">
+          <li>Reports defensible at committee and under EA scrutiny</li>
+          <li>Proactive EA and LLFA pre-application engagement</li>
+          <li>Fast turnarounds to support your programme</li>
+        </ul>
+      </div>
+
+      <div class="audience-card">
+        <div class="audience-num">04</div>
+        <div class="audience-icon">🏛</div>
+        <div class="audience-name">Local Authorities</div>
+        <p class="audience-pain">Specialist support for stretched LLFA teams — delivered with a clear understanding of statutory responsibilities and procurement requirements.</p>
+        <ul class="audience-points">
+          <li>SFRAs, Section 19s, and LLFA FRA review</li>
+          <li>Familiar with framework and procurement routes</li>
+          <li>Outputs that meet statutory and public scrutiny</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="background: var(--off-white);">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-visual">
+        <div class="about-card-main">
+          <div class="about-name">Mike Robinson-Smith</div>
+          <div class="about-title">Director, RS Consulting</div>
+          <p style="color: rgba(255,255,255,0.75); font-size: 15px; line-height: 1.7;">A specialist flood risk and environmental consultant with experience across residential, commercial, and infrastructure projects in Yorkshire and the wider North of England.</p>
+          <div class="about-quals">
+            <span class="qual-badge">BSc (Hons)</span>
+            <span class="qual-badge">REnvP</span>
+            <span class="qual-badge">AMIEnvSc</span>
+          </div>
+        </div>
+        <div class="about-accent">
+          <p>"You will always deal directly with me — from the initial site appraisal through to the final report. No junior handoffs, no account managers. Just focused, senior-level expertise on your project."</p>
+        </div>
+      </div>
+      <div class="about-content">
+        <div class="section-label">About RS Consulting</div>
+        <h2 class="section-title">Senior expertise. Direct delivery.</h2>
+        <div class="divider"></div>
+        <p>RS Consulting was founded on a simple premise: clients deserve <strong>direct access to senior expertise</strong>, not a production line where instructions are passed down to junior staff.</p>
+        <p>Every project is led and delivered personally by Mike Robinson-Smith — a Registered Environmentalist and Associate Member of the Institute of Environmental Sciences with hands-on experience across the full range of flood risk and drainage work in planning and development.</p>
+        <ul class="value-list">
+          <li>
+            <div class="value-num">01</div>
+            <div class="value-text">
+              <strong>Programme-Aware</strong>
+              <span>We understand planning timelines. FRAs, drainage strategies, and condition discharge reports are delivered to fit your programme — not ours.</span>
+            </div>
+          </li>
+          <li>
+            <div class="value-num">02</div>
+            <div class="value-text">
+              <strong>Technically Rigorous</strong>
+              <span>Our reports are built to satisfy the LPA, the EA, and the LLFA first time. No shortcuts that come back to bite you at committee.</span>
+            </div>
+          </li>
+          <li>
+            <div class="value-num">03</div>
+            <div class="value-text">
+              <strong>Clearly Communicated</strong>
+              <span>Technical without being impenetrable. You and your client will always understand what we're saying, and why it matters.</span>
+            </div>
+          </li>
+          <li>
+            <div class="value-num">04</div>
+            <div class="value-text">
+              <strong>Locally Grounded</strong>
+              <span>Deep knowledge of Yorkshire and Humber flood risk conditions, LPA approaches, and LLFA SuDS requirements — built from experience on the ground.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section>
+  <div class="section-inner">
+    <div class="section-label">How We Work</div>
+    <h2 class="section-title">From Enquiry to Report</h2>
+    <div class="divider"></div>
+    <p class="section-sub">A straightforward process designed around your project timeline. No unnecessary complexity, no delays.</p>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-circle">1</div>
+        <div class="step-name">Initial Enquiry</div>
+        <p class="step-desc">Contact us with your site details. We'll respond same-day and arrange a brief call to understand your needs and programme.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-circle">2</div>
+        <div class="step-name">Site Appraisal</div>
+        <p class="step-desc">We carry out a desktop flood risk review and confirm the scope, fee, and programme. Free of charge and no obligation.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-circle">3</div>
+        <div class="step-name">Assessment &amp; Report</div>
+        <p class="step-desc">Mike leads all technical work personally. Where site visits are required, we attend. Your report is thorough, clearly written, and delivered on time.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-circle">4</div>
+        <div class="step-name">Planning Support</div>
+        <p class="step-desc">We support you through the planning process — responding to LPA or EA queries, amending reports where needed, and helping discharge conditions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section class="cases-bg" id="cases">
+  <div class="section-inner">
+    <div class="section-label">Case Studies</div>
+    <h2 class="section-title">Projects &amp; Outcomes</h2>
+    <div class="divider"></div>
+    <p class="section-sub">A selection of project examples illustrating the types of challenges we help clients navigate. All cases anonymised.</p>
+    <div class="cases-grid">
+
+      <div class="case-card">
+        <div class="case-header" style="background: linear-gradient(135deg, #1F4E79, #2E75B6);">
+          <div class="case-tag">Developer · Flood Zone 3a</div>
+          <div class="case-title">Residential Development — EA Objection Resolved</div>
+        </div>
+        <div class="case-body">
+          <div class="case-challenge">Challenge</div>
+          <p class="case-text">A developer's planning application had been stalled for eight months with an outstanding Environment Agency objection. The original FRA had underestimated climate change allowances and the Sequential Test was insufficiently evidenced.</p>
+          <div class="case-outcome">
+            <strong>Outcome</strong>
+            <p>Revised FRA and Sequential Test produced. EA objection withdrawn within six weeks. Planning permission granted shortly after.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-header" style="background: linear-gradient(135deg, #196F3D, #239B56);">
+          <div class="case-tag">Architect · Mixed Use</div>
+          <div class="case-title">Town Centre Regeneration — Integrated Drainage Design</div>
+        </div>
+        <div class="case-body">
+          <div class="case-challenge">Challenge</div>
+          <p class="case-text">An architectural practice needed flood risk and drainage input at RIBA Stage 2 for a complex town centre regeneration scheme. Previous advisors had provided input too late, requiring costly revisions to the scheme layout.</p>
+          <div class="case-outcome">
+            <strong>Outcome</strong>
+            <p>Appointed at Stage 2. Site levels and drainage strategy designed into the scheme from the start. Planning submission approved without flood risk objections.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-header" style="background: linear-gradient(135deg, #784212, #CA6F1E);">
+          <div class="case-tag">Local Authority · SFRA</div>
+          <div class="case-title">Strategic FRA Update — Local Plan Preparation</div>
+        </div>
+        <div class="case-body">
+          <div class="case-challenge">Challenge</div>
+          <p class="case-text">A local planning authority required an updated Level 1 and Level 2 SFRA to support their emerging Local Plan, incorporating new flood mapping, updated climate change allowances, and revised housing growth allocations.</p>
+          <div class="case-outcome">
+            <strong>Outcome</strong>
+            <p>SFRA delivered on programme. Adopted as part of the Local Plan evidence base. Inspector confirmed the flood risk evidence was thorough and up to date.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-bg" id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="contact-left">
+        <div class="section-label" style="color: var(--water);">Get In Touch</div>
+        <h2 class="section-title">Let's Talk About Your Project</h2>
+        <div class="divider"></div>
+        <p class="section-sub">Whether you have a specific site in mind or just want to understand your options, we're always happy to have an informal conversation. No obligation, no cost.</p>
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-detail">
+              <strong>Phone</strong>
+              <a href="tel:07745959797">07745 959 797</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉</div>
+            <div class="contact-detail">
+              <strong>Email</strong>
+              <a href="mailto:info@rs-consulting.uk">info@rs-consulting.uk</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-detail">
+              <strong>Based In</strong>
+              <a href="#">Yorkshire &amp; The Humber</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-areas">
+          <h4>Areas Covered</h4>
+          <div class="area-tags">
+            <span class="area-tag">Yorkshire</span>
+            <span class="area-tag">Humberside</span>
+            <span class="area-tag">North Lincolnshire</span>
+            <span class="area-tag">North Yorkshire</span>
+            <span class="area-tag">West Yorkshire</span>
+            <span class="area-tag">South Yorkshire</span>
+            <span class="area-tag">East Riding</span>
+            <span class="area-tag">North of England</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="contact-form">
+          <div class="form-title">Send an Enquiry</div>
+          <form id="enquiry-form" action="https://formspree.io/f/xlgkroqq" method="POST">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="e.g. James Hartley" required>
+              </div>
+              <div class="form-group">
+                <label for="organisation">Organisation</label>
+                <input type="text" id="organisation" name="organisation" placeholder="e.g. Hartley Developments">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="your@email.com" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Optional">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="client-type">I Am A…</label>
+              <select id="client-type" name="client_type">
+                <option value="">— Please select —</option>
+                <option>Property Developer</option>
+                <option>Architect</option>
+                <option>Planning Consultant</option>
+                <option>Local Authority</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="details">Site / Project Details</label>
+              <textarea id="details" name="details" placeholder="Tell us briefly about your site or project — location, Flood Zone if known, planning stage, and what you need..."></textarea>
+            </div>
+            <!-- Honeypot spam filter -->
+            <input type="text" name="_gotcha" style="display:none">
+            <input type="hidden" name="_subject" value="New Enquiry — RS Consulting Website">
+            <button type="submit" class="btn-submit" id="submit-btn">
+              Send Enquiry →
+            </button>
+          </form>
+          <div id="form-success" style="display:none; text-align:center; padding: 40px 20px;">
+            <div style="font-size: 48px; margin-bottom: 16px;">✓</div>
+            <div style="font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); font-weight: 700; margin-bottom: 10px;">Message Received</div>
+            <p style="color: var(--grey); font-size: 15px; line-height: 1.6;">Thank you for your enquiry. Mike will be in touch shortly — usually within one working day.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <img src="data:image/jpeg;base64,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" alt="RS Consulting">
+    <div class="footer-brand">RS Consulting <span>Flood Risk &amp; Environmental Specialists</span></div>
+  </div>
+  <div class="footer-right">
+    Mike Robinson-Smith BSc (Hons), REnvP, AMIEnvSc<br>
+    <a href="mailto:info@rs-consulting.uk" style="color: rgba(255,255,255,0.5); text-decoration: none;">info@rs-consulting.uk</a> · 
+    <a href="tel:07745959797" style="color: rgba(255,255,255,0.5); text-decoration: none;">07745 959 797</a>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll behaviour
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 30);
+  });
+
+  // Formspree AJAX submission
+  const form = document.getElementById('enquiry-form');
+  const submitBtn = document.getElementById('submit-btn');
+  const successMsg = document.getElementById('form-success');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    submitBtn.textContent = 'Sending…';
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = '0.7';
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        form.style.display = 'none';
+        successMsg.style.display = 'block';
+      } else {
+        submitBtn.textContent = 'Something went wrong — please email us directly';
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '1';
+        submitBtn.style.background = '#c0392b';
+      }
+    } catch (err) {
+      submitBtn.textContent = 'Network error — please try again';
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '1';
+    }
+  });
+</script>
+
+</body>
+</html>
